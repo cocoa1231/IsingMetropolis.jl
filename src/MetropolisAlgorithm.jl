@@ -2,7 +2,7 @@
 """
     Evolve the given lattice `steps` Monte Carlo steps at inverse temperature β.
 """
-function metropolis!(lattice::AbstractMetropolisLattice, steps::Integer, β::Float64; progressbar = true)
+function metropolis!(lattice::AbstractMetropolisLattice, steps::Integer, β::Float64; progressbar = false)
 
     # Create a list of all the exponentials beforehand
     possible_dE = [-8:2:8;]
