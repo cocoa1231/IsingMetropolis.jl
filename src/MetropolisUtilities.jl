@@ -4,6 +4,8 @@
     Uses `scipy.signal.convolve2d` to perform energy calculation with boundary
     condition "wrap" for circular boundary. mode = "same" ensures the output
     array is the same size as the input lattice.
+
+    TODO: Add support for additional B Field interaction
 """
 function energy(lattice::AbstractMatrix{Int64})::Int64
     kern = [
@@ -19,6 +21,8 @@ end
 """
     Return the energy required to flip a spin on the lattice specified by a 2-tuple.
     Requires circular boundary conditions implimented by CircularArray.
+
+    TODO: Add support for additional B Field interaction
 """
 function dE_at_site(lattice::CircularArray, site)
     x, y = site
