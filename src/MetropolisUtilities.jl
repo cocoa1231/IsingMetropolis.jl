@@ -7,15 +7,16 @@
 
     TODO: Add support for additional B Field interaction
 """
-function energy(lattice::AbstractMatrix{Int64})::Int64
+function energy(lattice::AbstractMatrix{Int64}; Bfield_strength = 0)::Tuple{Int64, Float64}
     kern = [
         0 1 0;
         1 0 1;
         0 1 0
     ]
 
-    atom_energy = signal.convolve2d(lattice, kern, mode = "same", boundary = "wrap") .* lattice
-    return -Int(sum(atom_energy) / 2)
+    self_interaction_energy = signal.convolve2d(lattice, kern, mode = "same", boundary = "wrap") .* lattice |> sum
+    field_interaction_energy = -Bfield_strength * sum(lattice)
+    return (-Int(self_interaction_energy / 2), field_interaction_energy)
 end
 
 """
@@ -24,11 +25,17 @@ end
 
     TODO: Add support for additional B Field interaction
 """
-function dE_at_site(lattice::CircularArray, site)
+function dE_at_site(lattice::CircularArray, site; Bfield_strength = 0)
     x, y = site
     spin_site = lattice[x, y]
+
+    # Change in energy due to self interaction
     nn_sum = sum([lattice[x+1,y], lattice[x-1, y], lattice[x, y+1], lattice[x, y-1]])
-    return 2*spin_site*nn_sum
+    ΔE_self = 2*spin_site*nn_sum
+
+    # Change in energy due to field interaction
+    ΔE_field = 2*spin_site*Bfield_strength
+    return (ΔE_self, ΔE_field)
 end
 
 
