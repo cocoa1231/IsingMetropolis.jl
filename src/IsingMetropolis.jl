@@ -50,7 +50,7 @@ end
 """
 function _fill_U_history!(lattice::AbstractMetropolisLattice)
     l = copy(lattice.initial)
-    lattice.internalenergy_hist = Float64[energy(l)]
+    lattice.internalenergy_hist = Float64[sum(energy(l))]
     for s_k in lattice.spinsflipped
         if s_k == (-1, -1)
             # If no spin was flipped then energy has not changed
