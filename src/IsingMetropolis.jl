@@ -70,7 +70,7 @@ end
     Fill the internal energy or magnetization history of a lattice evolved using the
     `IsingMetropolis.metropolis!` function.
 """
-function fill_data(lattice::AbstractMetropolisLattice, data::Symbol)
+function fill_data!(lattice::AbstractMetropolisLattice, data::Symbol)
     if data == :M
         return _fill_M_history!(lattice)
     elseif data == :U
