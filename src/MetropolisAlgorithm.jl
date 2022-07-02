@@ -33,7 +33,7 @@ function metropolis!(lattice::AbstractMetropolisLattice, steps::Integer, β::Flo
             # Otherwise probabilistically accept w/ probability exp(-β*dE)
             u = rand()
             s = lattice.final[x, y]
-            if u < exponentials[dE]*field_exp[s*sign(lattice.external_field)]
+            if u < exponentials[dE]*field_exp[Int(s*sign(lattice.external_field))]
                 lattice.final[x, y] *= -1
                 push!(lattice.spinsflipped, (x, y))
             else
