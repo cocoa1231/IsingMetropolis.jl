@@ -15,7 +15,7 @@ export MetropolisLattice
 export energy
 export dE_at_site
 export metropolis!
-export fill_data
+export fill_data!
 
 # Methods on the main AbstractMetropolisLattice type go here.
 # Other methods go in MetropolisUtilities.jl
