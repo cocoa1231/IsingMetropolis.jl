@@ -71,13 +71,13 @@ end
     metropolis!(l, steps, β)
 
     # Internal energy test
-    final_state = fill_data(l, :U)
+    final_state = fill_data!(l, :U)
     @test l.final == final_state
     @test isapprox(energy(final_state)[1], -2*N*N, atol = N)
     @test isapprox(energy(final_state)[2], 0, atol = N)
 
     # Magnetization test
-    final_state = fill_data(l, :M)
+    final_state = fill_data!(l, :M)
     @test l.final == final_state
     @test isapprox(abs(sum(l.final)), N*N, atol = Int(N/4)) 
 end
