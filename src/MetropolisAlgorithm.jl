@@ -1,7 +1,6 @@
 # Main Metropolis Algorithm
 """
     Evolve the given lattice `steps` Monte Carlo steps at inverse temperature β.
-    TODO: Add support for additional B field interaction
 """
 function metropolis!(lattice::AbstractMetropolisLattice, steps::Integer, β::Float64; progressbar = false)
 
