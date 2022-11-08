@@ -1,8 +1,15 @@
 module IsingMetropolis
 
 using CircularArrays
-using SciPy:signal as signal
+# using SciPy:signal as signal
+using PyCall
 using ProgressMeter
+
+const signal = PyNULL()
+
+function __init__()
+    copy!(signal, pyimport("scipy.signal"))
+end
 
 # Includes
 include("MetropolisDataStructures.jl")
@@ -57,7 +64,7 @@ function _fill_U_history!(lattice::AbstractMetropolisLattice)
             push!(lattice.internalenergy_hist, lattice.internalenergy_hist[end])
         else
             # Calculate dE at the site and append it
-            push!(lattice.internalenergy_hist, lattice.internalenergy_hist[end] + dE_at_site(l, s_k))
+            push!(lattice.internalenergy_hist, lattice.internalenergy_hist[end] + sum(dE_at_site(l, s_k)))
 
             # Update lattice for next calculation
             l[s_k...] *= -1
